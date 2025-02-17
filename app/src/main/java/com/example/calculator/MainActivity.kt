@@ -1,0 +1,117 @@
+package com.example.calculator
+
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.calculator.utils.evaluateExpression
+import java.util.Queue
+import java.util.Stack
+import kotlin.math.floor
+
+enum class Operation{
+    MUL,
+    DIV,
+    PLUS,
+    MINUS,
+    CLEAR,
+    RESULT;
+
+    override fun toString(): String {
+        return when(name){
+            "MUL" -> "*"
+            "DIV" -> "/"
+            "PLUS" -> "+"
+            "MINUS" -> "-"
+            "RESULT" -> "="
+            else -> ""
+        }
+    }
+}
+
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        textView = findViewById(R.id.calculation_text)
+
+        findViewById<Button>(R.id.button0).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button1).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button2).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button3).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button4).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button5).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button6).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button7).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button8).setOnClickListener{onNumberClick(it)}
+        findViewById<Button>(R.id.button9).setOnClickListener{onNumberClick(it)}
+
+        findViewById<Button>(R.id.button_plus).setOnClickListener{onOperationClick(it, Operation.PLUS)}
+        findViewById<Button>(R.id.button_mul).setOnClickListener{onOperationClick(it, Operation.MUL)}
+        findViewById<Button>(R.id.button_minus).setOnClickListener{onOperationClick(it,Operation.MINUS)}
+        findViewById<Button>(R.id.button_div).setOnClickListener{onOperationClick(it,Operation.DIV)}
+        findViewById<Button>(R.id.button_clear).setOnClickListener{onOperationClick(it,Operation.CLEAR)}
+        findViewById<Button>(R.id.button_result).setOnClickListener{onOperationClick(it, Operation.RESULT)}
+    }
+
+    private lateinit var textView: TextView
+
+    private var expression: String = ""
+
+    private val ERROR: String = "ERROR"
+
+    private fun onNumberClick(view: View) {
+        if (view !is Button) return
+
+        if(expression==ERROR)
+            expression =""
+
+        expression += view.text
+        textView.text = expression
+    }
+
+    private fun onOperationClick(view: View, operation: Operation) {
+        if (view !is Button) return
+
+        if(expression==ERROR)
+            expression =""
+
+        when(operation){
+            Operation.CLEAR -> {
+                expression = ""
+                textView.text = ""
+            }
+            Operation.RESULT -> {
+                val result = calculateResult()
+                textView.text = result
+                expression = result
+            }
+            else -> {
+                expression += operation.toString()
+                textView.text = expression
+            }
+        }
+    }
+
+    private fun calculateResult(): String{
+        try {
+            val result = evaluateExpression(expression)
+            return result.toString()
+        }catch (e: Exception){
+            Log.e("ERROR", "calculateResult: $e")
+            return ERROR
+        }
+    }
+}
