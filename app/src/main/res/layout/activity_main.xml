@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TableLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -94,12 +94,55 @@
                 android:scrollbarAlwaysDrawVerticalTrack="false">
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/button_par_left"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
+                    android:foregroundTint="#D55656"
+                    android:nestedScrollingEnabled="false"
+                    android:text="(" />
+
+                <Button
+                    android:id="@+id/button_par_right"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
+                    android:nestedScrollingEnabled="false"
+                    android:text=")" />
+
+                <Button
+                    android:id="@+id/button_clear"
+                    style="@style/Widget.AppCompat.Button.Small"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="2.7"
+                    android:nestedScrollingEnabled="false"
+                    android:text="C" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false">
+
+                <Button
+                    android:id="@+id/button7"
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:foregroundTint="#D55656"
                     android:nestedScrollingEnabled="false"
                     android:text="7" />
@@ -107,30 +150,30 @@
                 <Button
                     android:id="@+id/button8"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="8" />
 
                 <Button
                     android:id="@+id/button9"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="9" />
 
                 <Button
                     android:id="@+id/button_plus"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="+" />
             </TableRow>
@@ -149,40 +192,40 @@
                 <Button
                     android:id="@+id/button4"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="4" />
 
                 <Button
                     android:id="@+id/button5"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="5" />
 
                 <Button
                     android:id="@+id/button6"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="6" />
 
                 <Button
                     android:id="@+id/button_minus"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="-" />
             </TableRow>
@@ -201,40 +244,40 @@
                 <Button
                     android:id="@+id/button1"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="1" />
 
                 <Button
                     android:id="@+id/button2"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="2" />
 
                 <Button
                     android:id="@+id/button3"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="3" />
 
                 <Button
                     android:id="@+id/button_mul"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="x" />
             </TableRow>
@@ -250,43 +293,34 @@
                 android:scrollbarAlwaysDrawHorizontalTrack="false"
                 android:scrollbarAlwaysDrawVerticalTrack="false">
 
-                <Button
-                    android:id="@+id/button_clear"
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:nestedScrollingEnabled="false"
-                    android:text="C" />
 
                 <Button
                     android:id="@+id/button0"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="2.7"
                     android:nestedScrollingEnabled="false"
                     android:text="0" />
 
                 <Button
                     android:id="@+id/button_result"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="=" />
 
                 <Button
                     android:id="@+id/button_div"
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_weight="0.5"
                     android:nestedScrollingEnabled="false"
                     android:text="/" />
             </TableRow>

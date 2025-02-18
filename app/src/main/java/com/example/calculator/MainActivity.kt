@@ -20,7 +20,10 @@ enum class Operation{
     PLUS,
     MINUS,
     CLEAR,
-    RESULT;
+    RESULT,
+    BRACKET_LEFT,
+    BRACKET_RIGHT,
+    ;
 
     override fun toString(): String {
         return when(name){
@@ -29,6 +32,8 @@ enum class Operation{
             "PLUS" -> "+"
             "MINUS" -> "-"
             "RESULT" -> "="
+            "BRACKET_LEFT" -> "("
+            "BRACKET_RIGHT" -> ")"
             else -> ""
         }
     }
@@ -62,6 +67,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_mul).setOnClickListener{onOperationClick(it, Operation.MUL)}
         findViewById<Button>(R.id.button_minus).setOnClickListener{onOperationClick(it,Operation.MINUS)}
         findViewById<Button>(R.id.button_div).setOnClickListener{onOperationClick(it,Operation.DIV)}
+        findViewById<Button>(R.id.button_par_left).setOnClickListener{onOperationClick(it,Operation.BRACKET_LEFT)}
+        findViewById<Button>(R.id.button_par_right).setOnClickListener{onOperationClick(it,Operation.BRACKET_RIGHT)}
         findViewById<Button>(R.id.button_clear).setOnClickListener{onOperationClick(it,Operation.CLEAR)}
         findViewById<Button>(R.id.button_result).setOnClickListener{onOperationClick(it, Operation.RESULT)}
     }
