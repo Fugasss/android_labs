@@ -10,9 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.calculator.utils.evaluateExpression
-import java.util.Queue
-import java.util.Stack
-import kotlin.math.floor
 
 enum class Operation{
     MUL,
@@ -40,6 +37,8 @@ enum class Operation{
 }
 
 class MainActivity : AppCompatActivity() {
+    val TAG: String = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -71,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_par_right).setOnClickListener{onOperationClick(it,Operation.BRACKET_RIGHT)}
         findViewById<Button>(R.id.button_clear).setOnClickListener{onOperationClick(it,Operation.CLEAR)}
         findViewById<Button>(R.id.button_result).setOnClickListener{onOperationClick(it, Operation.RESULT)}
+
+        Log.d(TAG, "onCreate");
     }
 
     private lateinit var textView: TextView
@@ -121,4 +122,35 @@ class MainActivity : AppCompatActivity() {
             return ERROR
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "onStart")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "onStop")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "onPause")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(TAG, "onResume")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d(TAG, "onRestart")
+    }
+
 }
