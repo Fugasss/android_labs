@@ -1,79 +1,72 @@
 package com.example.calculator
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.calculator.databinding.ActivityMainBinding
 
 
+data class Person(val id: Int, val name: String, val age: Int)
+
 class MainActivity : AppCompatActivity() {
-    private lateinit var backgroundServiceIntent: Intent
-    private lateinit var broadcastReceiver: BroadcastReceiver
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var dbHelper: DatabaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.startServiceButton.setOnClickListener { startBackgroundService() }
-        binding.stopServiceButton.setOnClickListener { stopBackgroundService() }
         setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        dbHelper = DatabaseHelper(this)
+
+        val idText = binding.idText
+        val nameText = binding.nameText
+        val ageText = binding.ageText
+
+        binding.saveButton.setOnClickListener {
+            saveButtonClick(idText, nameText, ageText)
         }
 
-        val status = binding.statusText
-
-        broadcastReceiver = CustomBroadcastReceiver{ data ->
-            status.text = if(status.text.length < 500) "${status.text}${data}" else ""
+        binding.loadButton.setOnClickListener {
+            loadButtonClick(idText, nameText, ageText)
         }
-        backgroundServiceIntent = Intent(applicationContext, CustomBackgroundService::class.java)
     }
 
-    private var isReceiverRegistered = false
+    private fun saveButtonClick(
+        idText: EditText,
+        nameText: EditText,
+        ageText: EditText
+    ) {
+        val id = idText.text.toString().toIntOrNull()
+        val name = nameText.text.toString()
+        val age = ageText.text.toString().toIntOrNull()
 
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    private fun startBackgroundService() {
-        val filter = IntentFilter()
-        filter.addAction("com.example.action.UPDATE_DATA")
+        if (id != null && age != null && name.isNotEmpty()) {
+            val person = Person(id, name, age)
+            dbHelper.savePerson(person)
 
-        if (!isReceiverRegistered) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(broadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-            } else {
-                registerReceiver(broadcastReceiver, filter)
-            }
-            isReceiverRegistered = true
+            Toast.makeText(this, "Person saved!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Invalid input!", Toast.LENGTH_SHORT).show()
         }
-
-        startService(backgroundServiceIntent)
     }
 
-    private fun stopBackgroundService() {
-        if (isReceiverRegistered) {
-            unregisterReceiver(broadcastReceiver)
-            isReceiverRegistered = false
+    private fun loadButtonClick(
+        idText: EditText,
+        nameText: EditText,
+        ageText: EditText
+    ) {
+        val person = dbHelper.loadPerson()
+        if (person != null) {
+            idText.setText(person.id.toString())
+            nameText.setText(person.name)
+            ageText.setText(person.age.toString())
+
+            Toast.makeText(this, "Person loaded!", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "No data found!", Toast.LENGTH_SHORT).show()
         }
-
-        stopService(backgroundServiceIntent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopBackgroundService()
     }
 }
