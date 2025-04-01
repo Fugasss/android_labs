@@ -1,24 +1,21 @@
 package com.example.calculator
 
-import android.annotation.SuppressLint
-import android.content.BroadcastReceiver
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.part1.DataSenderActivity
+import com.example.calculator.part2.OpenCameraActivity
+import com.example.calculator.part3.ContactsListActivity
+import com.example.calculator.part4.SendMessageActivity
+import com.example.calculator.part5.PhoneCallActivity
+import com.example.calculator.part6.WebViewActivity
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var backgroundServiceIntent: Intent
-    private lateinit var broadcastReceiver: BroadcastReceiver
 
     private lateinit var binding: ActivityMainBinding
 
@@ -27,8 +24,15 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-        binding.startServiceButton.setOnClickListener { startBackgroundService() }
-        binding.stopServiceButton.setOnClickListener { stopBackgroundService() }
+
+        binding.part1.setOnClickListener { startActivity(Intent(this, DataSenderActivity::class.java)) }
+        binding.part2.setOnClickListener { startActivity(Intent(this, OpenCameraActivity::class.java)) }
+        binding.part3.setOnClickListener { startActivity(Intent(this, ContactsListActivity::class.java)) }
+        binding.part4.setOnClickListener { startActivity(Intent(this, SendMessageActivity::class.java)) }
+        binding.part5.setOnClickListener { startActivity(Intent(this, PhoneCallActivity::class.java)) }
+        binding.part6.setOnClickListener { startActivity(Intent(this, WebViewActivity::class.java)) }
+//        binding.part7.setOnClickListener { startActivity(Intent(this, DataSenderActivity::class.java)) }
+
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -36,44 +40,5 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val status = binding.statusText
-
-        broadcastReceiver = CustomBroadcastReceiver{ data ->
-            status.text = if(status.text.length < 500) "${status.text}${data}" else ""
-        }
-        backgroundServiceIntent = Intent(applicationContext, CustomBackgroundService::class.java)
-    }
-
-    private var isReceiverRegistered = false
-
-    @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    private fun startBackgroundService() {
-        val filter = IntentFilter()
-        filter.addAction("com.example.action.UPDATE_DATA")
-
-        if (!isReceiverRegistered) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                registerReceiver(broadcastReceiver, filter, Context.RECEIVER_NOT_EXPORTED)
-            } else {
-                registerReceiver(broadcastReceiver, filter)
-            }
-            isReceiverRegistered = true
-        }
-
-        startService(backgroundServiceIntent)
-    }
-
-    private fun stopBackgroundService() {
-        if (isReceiverRegistered) {
-            unregisterReceiver(broadcastReceiver)
-            isReceiverRegistered = false
-        }
-
-        stopService(backgroundServiceIntent)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        stopBackgroundService()
     }
 }
