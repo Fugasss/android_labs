@@ -2,6 +2,7 @@ package com.example.calculator.part6
 
 import android.os.Bundle
 import android.webkit.WebSettings
+import android.webkit.WebViewClient
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,6 +26,7 @@ class WebViewActivity : AppCompatActivity() {
 
 
         val webView = binding.webBrowser
+        webView.webViewClient = WebViewClient()
 
         webView.settings.apply {
             cacheMode = WebSettings.LOAD_DEFAULT

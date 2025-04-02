@@ -13,6 +13,7 @@ import com.example.calculator.part3.ContactsListActivity
 import com.example.calculator.part4.SendMessageActivity
 import com.example.calculator.part5.PhoneCallActivity
 import com.example.calculator.part6.WebViewActivity
+import com.example.calculator.part7.OpenBrowserActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding.part4.setOnClickListener { startActivity(Intent(this, SendMessageActivity::class.java)) }
         binding.part5.setOnClickListener { startActivity(Intent(this, PhoneCallActivity::class.java)) }
         binding.part6.setOnClickListener { startActivity(Intent(this, WebViewActivity::class.java)) }
-//        binding.part7.setOnClickListener { startActivity(Intent(this, DataSenderActivity::class.java)) }
+        binding.part7.setOnClickListener { startActivity(Intent(this, OpenBrowserActivity::class.java)) }
 
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
